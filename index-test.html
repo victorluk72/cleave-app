@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Cleave demo</title>
+  </head>
+  <body>
+    <h1>Cleave demo</h1>
+    
+    <select id="select-country">
+         <option value="CA">CA</option>
+         <option value="US">US</option>
+         <option value="SG">SG</option>
+         <option value="UA">UA</option>   
+    </select>
+
+    <input class="format-phone" id="input-phone1" type="text" />
+    <input class="format-phone" id="input-phone2" type="text" />
+
+    <hr>
+
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <strong><label for="inputCountry">Country</label></strong>
+        <select class="form-control" id="selectCountry">
+          <option value="+1">Canada</option>
+          <option value="+1">USA</option>
+          <option value="+380">Ukraine</option> 
+        </select> 
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="inputCity">City</label></strong>
+        <input type="text" class="form-control" id="inputCity">
+      </div>
+      <div class="form-group col-md-4">
+        <strong><label for="inputState">Province/State</label></strong>
+        <input type="text" class="form-control" id="inputState"> 
+      </div>
+      <div class="form-group col-md-2">
+        <strong><label for="inputZip">Postal code</label></strong>
+        <input type="text" class="form-control" id="inputZip">
+      </div>
+    </div>
+
+    <hr>
+        <div class="form-row" >
+          <div class="form-group col-md-2">
+            <!--NEWCODE-->
+            <strong><label for="countryCode">Country code</label></strong>
+            <input type="text" readonly class="form-control" id="countryCode" value="+1">
+          </div>
+          <!--NEWCODE-->
+            <div class="form-group col-md-3">
+              <strong><label for="inputHomePhone">Home phone</label></strong>
+              <input type="text" class="form-control format-phone" id="inputHomePhone">
+            </div>
+            <div class="form-group col-md-3">
+              <strong><label for="inputMobilePhone">Mobile phone</label></strong>
+              <input type="text" class="form-control format-phone" id="inputMobilePhone"> 
+            </div>
+            <div class="form-group col-md-2">
+              <strong><label for="inputWorkPhone">Work phone</label></strong>
+              <input type="text" class="form-control format-phone" id="inputWorkPhone">
+            </div>
+            <div class="form-group col-md-2">
+              <strong><label for="inputWorkPhoneExt">Ext</label></strong>
+              <input type="text" class="form-control" id="inputWorkPhoneExt">
+            </div> 
+          </div>
+
+    
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+    <!-- Cleave Scripts -->
+    <script src="cleave.js"></script>
+    <script src="cleave-phone.i18n.js"></script>
+
+    <script>
+     /* 
+     var cleave = new Cleave('#input-phone1', {
+            phone:true,
+            delimiter: '-',
+            phoneRegionCode: 'CA'
+        });
+
+        var cleave = new Cleave('#input-phone2', {
+            phone:true,
+            delimiter: '-',
+            phoneRegionCode: 'CA'
+        });   
+     */
+  
+    var phoneCollection = document.getElementsByClassName("format-phone");
+    var phs = Array.from(phoneCollection);
+    var defCountry = document.getElementById("select-country").value
+    phs.forEach(function (ph) {
+            new Cleave(ph, {
+            phone:true,
+            delimiter: '-',
+            phoneRegionCode: defCountry
+        })
+     });
+
+
+     var selectCountry = document.getElementById("select-country"); 
+     selectCountry.addEventListener("change", function() {
+     /*cleave.setPhoneRegionCode(this.value);
+     cleave.setRawValue('') */
+    var phoneCollection = document.getElementsByClassName("format-phone");
+    var phs = Array.from(phoneCollection);
+    var defCountry = document.getElementById("select-country").value
+    phs.forEach(function (ph) {
+            new Cleave(ph, {
+            phone:true,
+            delimiter: '-',
+            phoneRegionCode: defCountry
+        })
+     });
+
+     });
+
+     /* --------------NEWCODE--------------*/
+
+    
+      //We use the parent of the element (parent fo rdelete is book list)
+      document.getElementById("selectCountry").addEventListener('change', function(e)
+        {
+
+        /*document.getElementById("countryCode").value = document.getElementById("selectCountry").value */
+        document.getElementById("countryCode").value = this.value
+        e.preventDefault();
+        });
+      /* -------------------------------*/
+    
+    </script>
+
+  </body>
+</html>
